@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+  <h1>🎥 Catálogo de Películas</h1>
+  <form id="form-busqueda">
+      <input type="text" id="input-busqueda" placeholder="Buscar película..." />
+      <button type="submit">Buscar</button>
+  </form>
+
+  <nav class="menu-generos">
+    <button id="toggle-menu">☰ Géneros</button>
+    <div id="menu-generos" class="menu oculto">
+      
+        <button id="mostrar-todos">📽️ Todas</button>
+        <button id="mostrar-fav">❤️ Favoritos</button>
+        <button class="btn-genero" data-genero="28">🎯 Acción</button>
+        <button class="btn-genero" data-genero="12">🧭 Aventura</button>
+        <button class="btn-genero" data-genero="16">🎨 Animación</button>
+        <button class="btn-genero" data-genero="35">😂 Comedia</button>
+        <button class="btn-genero" data-genero="80">🔪 Crimen</button>
+        <button class="btn-genero" data-genero="99">📽️ Documental</button>
+        <button class="btn-genero" data-genero="18">🎭 Drama</button>
+        <button class="btn-genero" data-genero="10751">👨‍👩‍👧 Familiar</button>
+        <button class="btn-genero" data-genero="14">✨ Fantasía</button>
+        <button class="btn-genero" data-genero="36">🏛️ Historia</button>
+        <button class="btn-genero" data-genero="27">👻 Terror</button>
+        <button class="btn-genero" data-genero="10402">🎵 Musical</button>
+        <button class="btn-genero" data-genero="9648">🕵️ Misterio</button>
+        <button class="btn-genero" data-genero="10749">💖 Romance</button>
+        <button class="btn-genero" data-genero="878">🚀 Ciencia ficción</button>
+        <button class="btn-genero" data-genero="10770">📺 TV</button>
+        <button class="btn-genero" data-genero="53">😱 Suspenso</button>
+        <button class="btn-genero" data-genero="10752">⚔️ Bélica</button>
+        <button class="btn-genero" data-genero="37">🤠 Western</button>
+      
+    </div>
+  </nav>
+
+ 
+
+  
+  
+  <div id="peliculas" class="contenedor-peliculas"></div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="script.js"></script>
+</body>
+</html>
