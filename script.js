@@ -10,6 +10,7 @@ const btnFav = document.querySelector("#btnFav")
 const btnMostrarFav = document.querySelector("#mostrar-fav")
 const btnMostrarTodo = document.querySelector("#mostrar-todos")
 const btnGenero = document.querySelectorAll(".btn-genero")
+
 let peliculas = []
 const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
@@ -44,33 +45,80 @@ const renderizarPeliculas = (peliculas) =>{
                 ${esFavorita ? "❤️" : "🤍"}
             </button>
         </div>
-        `;
-
+        `
+        div.addEventListener("click", (e)=>{
+            if (e.target.classList.contains("btnFav")) return;
+            mostrarInfo(pelicula.id)
+        })
         contenedor.appendChild(div);
-
       });
 }
 
+const mostrarInfo = async(idPelicula) =>{
+    
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${idPelicula}?api_key=${API_KEY}&language=es-ES`);
+    const data = await res.json();
+
+    Swal.fire({
+        theme: 'dark',
+        title: `${data.title}`,
+        html: `📅Fecha de estreno: ${data.release_date}<br> <br> ${data.overview} <br><br> Puntuacion: ⭐${data.vote_average.toFixed(1)}/10`,
+        imageUrl: `${IMG_URL + data.poster_path}`,
+        imageWidth: 200,
+        imageHeight: 300,
+        imageAlt: `${data.title}`
+      });
+
+    
+}
 
 
 contenedor.addEventListener("click", (e) => {
     if (e.target.classList.contains("btnFav")) {
-        const id = parseInt(e.target.dataset.id);
+        const id = parseInt(e.target.dataset.id)
         agregarFavorito(id)
-        e.target.classList.toggle("favorito");
+        e.target.classList.toggle("favorito")
         e.target.textContent = e.target.classList.contains("favorito") ? "❤️" : "🤍";
     }
-  });
+  })
 
 const agregarFavorito = (id) =>{
     let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
     
     if(favoritos.includes(id)){
         favoritos = favoritos.filter(favId => favId !== id);
-        Swal.fire("Eliminado de favoritos");
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "error",
+            title: "Eliminado de Favoritos"
+          });
     }else{
         favoritos.push(id) 
-        Swal.fire("Agregada a favoritos");  
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Agregado a Favoritos"
+          });
     }
     localStorage.setItem("favoritos", JSON.stringify(favoritos))
     
